@@ -35,21 +35,21 @@ const EditKaryawan: FC<EditKaryawanProps> = ({ karyawan }) => {
           <Input
             label="Nama karyawan"
             value={values?.name}
-            onChangeText={(text) => setValues({ ...values!, name: text })}
+            onChangeText={(text) => setValues({ ...values, name: text })}
           />
           <Input
             inputMode="email"
             label="Alamat email"
             value={values?.email}
-            onChangeText={(text) => setValues({ ...values!, email: text })}
+            onChangeText={(text) => setValues({ ...values, email: text })}
           />
           <Select
             withReset={false}
             options={["teknisi", "kasir"] as UserRole[]}
             label="Hak akses karyawan"
-            value={karyawan?.role}
+            value={values?.role}
             onChange={(value) => {
-              setValues({ ...values!, role: value as UserRole });
+              setValues({ ...values, role: value as UserRole });
             }}
           />
         </Wrapper>

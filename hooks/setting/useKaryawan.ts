@@ -32,3 +32,15 @@ export const useEditKaryawan = () => {
     },
   });
 };
+
+export const useDeleteKaryawan = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: User["id"]) => {
+      await apiKaryawan.deleteKaryawan(id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["karyawan"] });
+    },
+  });
+};

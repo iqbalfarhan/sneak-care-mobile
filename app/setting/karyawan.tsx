@@ -6,15 +6,17 @@ import KaryawanItem from "@/components/karyawan/KaryawanItem";
 import SwipeAction from "@/components/SwipeAction";
 import TabPill from "@/components/TabPill";
 import Wrapper from "@/components/Wrapper";
-import { useGetKaryawan } from "@/hooks/setting/useKaryawan";
+import { useDeleteKaryawan, useGetKaryawan } from "@/hooks/setting/useKaryawan";
 import React, { useState } from "react";
-import { RefreshControl, ScrollView } from "react-native";
+import { RefreshControl, ScrollView, ToastAndroid } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const karyawanScreen = () => {
   const [search, setSearch] = useState<string>("");
   const [tab, setTab] = useState<string>("");
   const { data, isLoading, refetch } = useGetKaryawan();
+
+  const deleteKaryawan = useDeleteKaryawan();
 
   return (
     <GestureHandlerRootView>
@@ -52,7 +54,19 @@ const karyawanScreen = () => {
                   actions={
                     <>
                       <EditKaryawan karyawan={karyawan} />
-                      <IconButton size="small" color="base" icon="trash" />
+                      <IconButton
+                        disabled={deleteKaryawan.isPending}
+                        size="small"
+                        color="base"
+                        icon="trash"
+                        onPress={() => {
+                          deleteKaryawan.mutateAsync(karyawan.id);
+                          ToastAndroid.show(
+                            "karyawan has been deleted",
+                            ToastAndroid.SHORT,
+                          );
+                        }}
+                      />
                     </>
                   }
                 >
