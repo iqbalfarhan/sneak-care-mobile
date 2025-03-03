@@ -11,13 +11,14 @@ import Wrapper from "@/components/Wrapper";
 import { formatRupiah } from "@/utils/helpers/currency";
 import { BarangLayanan } from "@/utils/types/layanan";
 import { Pelanggan } from "@/utils/types/pelanggan";
+import dayjs from "dayjs";
 import React, { useState } from "react";
 import { ScrollView, TouchableOpacity } from "react-native";
 
 const OrderScreen = () => {
   const [pelanggan, setPelanggan] = useState<Pelanggan>();
   const [barang, setBarang] = useState<BarangLayanan[]>([]);
-  const [estimasi, setEstimasi] = useState<string>();
+  const [estimasi, setEstimasi] = useState<Date>();
   const [pembayaran, setPembayaran] = useState<string>();
   const [pengiriman, setPengiriman] = useState<number>(0);
   const [diskon, setDiskon] = useState<string>();
@@ -98,7 +99,7 @@ const OrderScreen = () => {
             <Wrapper>
               <Wrapper flexDirection="row" justifyContent="space-between">
                 <Text variant="label">Estimasi selesai</Text>
-                <Text>{estimasi}</Text>
+                <Text>{dayjs(estimasi).format("DD MMMM YYYY")}</Text>
               </Wrapper>
               <Wrapper flexDirection="row" justifyContent="space-between">
                 <Text variant="label">Metode bayar</Text>
@@ -138,13 +139,24 @@ const OrderScreen = () => {
             onPress={() => {
               setPelanggan(undefined);
               setBarang([]);
-              setEstimasi("");
+              setEstimasi(undefined);
               setPembayaran("");
               setPengiriman(0);
               setDiskon("");
             }}
           />
-          <PreviewInvoice style={{ flex: 1 }} />
+          <PreviewInvoice
+            style={{ flex: 1 }}
+            payload={{
+              customer_id: pelanggan?.id ?? 0,
+              estimate_date: dayjs(estimasi).format("YYYY-MM-DD"),
+              shipping_cost: pengiriman,
+              barang: barang.map((item) => ({
+                name: item.layanan.name,
+                service_id: item.layanan.id,
+              })),
+            }}
+          />
         </Wrapper>
       </Wrapper>
     </ScrollView>

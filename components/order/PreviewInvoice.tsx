@@ -1,23 +1,28 @@
+import { useCreateOrder } from "@/hooks/invoice/useOrder";
+import { createOrderPayload } from "@/utils/apis/apiOrder";
 import { router } from "expo-router";
 import React, { FC, useState } from "react";
 import { ViewStyle } from "react-native";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
+import ErrorMessage from "../ErrorMessage";
 import Text from "../Text";
 import Wrapper from "../Wrapper";
 
 type PreviewInvoiceProps = {
   style?: ViewStyle;
+  payload: createOrderPayload;
 };
 
-const PreviewInvoice: FC<PreviewInvoiceProps> = ({ style }) => {
+const PreviewInvoice: FC<PreviewInvoiceProps> = ({ style, payload }) => {
   const [show, setShow] = useState<boolean>(false);
+  const { mutateAsync, isPending, error } = useCreateOrder();
+
   return (
     <>
       <Button
         label="Proses pesanan"
         icon="check"
-        disabled
         style={style}
         onPress={() => setShow(true)}
       />
@@ -27,22 +32,23 @@ const PreviewInvoice: FC<PreviewInvoiceProps> = ({ style }) => {
         onRequestClose={() => setShow(false)}
       >
         <Wrapper>
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis,
-            saepe rem. Aut numquam veritatis, id dolorem nihil incidunt animi
-            provident cum, tempore adipisci cupiditate possimus. Ipsam repellat
-            vero quos iusto!
-          </Text>
+          <Text>{JSON.stringify(payload, null, 2)}</Text>
+          {error && <ErrorMessage message={error.message} />}
         </Wrapper>
         <Button
           label="Lanjut proses pesanan"
           icon="check"
-          onPress={() =>
-            router.push({
-              pathname: "/invoice/[id]",
-              params: { id: "1" },
-            })
-          }
+          disabled={isPending}
+          onPress={() => {
+            mutateAsync(payload).then((data) => {
+              // console.log(JSON.stringify(data, null, 4));
+              setShow(false);
+              router.push({
+                pathname: "/invoice/[id]",
+                params: { id: data.id },
+              });
+            });
+          }}
         />
       </BottomSheet>
     </>

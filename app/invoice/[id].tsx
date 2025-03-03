@@ -64,7 +64,7 @@ const InvoiceDetail = () => {
                   <Wrapper flexDirection="row" justifyContent="space-between">
                     <Text variant="label">Total bayar</Text>
                     <Text variant="subtitle" color={color.primary.bg}>
-                      {formatRupiah(110000)}
+                      {formatRupiah(data?.total_pay ?? 0)}
                     </Text>
                   </Wrapper>
                 }
@@ -78,7 +78,7 @@ const InvoiceDetail = () => {
                   </Wrapper>
                   <Wrapper flexDirection="row" justifyContent="space-between">
                     <Text variant="label">Metode bayar</Text>
-                    <Text>{pembayaran.name}</Text>
+                    <Text>{pembayaran?.name ?? ""}</Text>
                   </Wrapper>
                   <Wrapper flexDirection="row" justifyContent="space-between">
                     <Text variant="label">Diskon</Text>

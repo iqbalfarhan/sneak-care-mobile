@@ -1,31 +1,18 @@
-import { generateAvatarLink } from "../helpers/text";
+import api from ".";
 import { User } from "../types/user";
 
 const apiKaryawan = {
-  getKaryawan: (): User[] => {
-    return [
-      {
-        id: 1,
-        name: "John technically",
-        email: "johndoe@example.com",
-        role: "teknisi",
-        photo: generateAvatarLink("John technically"),
-      },
-      {
-        id: 2,
-        name: "Jane cashier",
-        email: "janesmith@example.com",
-        role: "kasir",
-        photo: generateAvatarLink("Jane cashier"),
-      },
-      {
-        id: 3,
-        name: "Muhamamd rijal abdillah",
-        email: "johndoe@example.com",
-        role: "teknisi",
-        photo: generateAvatarLink("Muhamamd rijal abdillah"),
-      },
-    ];
+  getKaryawan: async (): Promise<User[]> => {
+    const { data } = await api.get("/employee");
+    return data;
+  },
+  postKaryawan: async (payload: Omit<User, "id">): Promise<User> => {
+    const { data } = await api.post("/employee", payload);
+    return data;
+  },
+  putKaryawan: async (user: User): Promise<User> => {
+    const { id, ...other } = user;
+    return await api.put(`/employee/${id}`, other);
   },
 };
 

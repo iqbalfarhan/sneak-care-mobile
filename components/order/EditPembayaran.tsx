@@ -1,6 +1,5 @@
 import { useGetDiscount } from "@/hooks/setting/useDiskon";
 import { useGetPayment } from "@/hooks/setting/usePayment";
-import { formatDate } from "@/utils/helpers/text";
 import React, { FC, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import Badge from "../Badge";
@@ -13,7 +12,7 @@ import Wrapper from "../Wrapper";
 
 type EditPembayaranProps = {
   onSave: (pembayaran: {
-    tanggal: string;
+    tanggal: Date;
     metode: string;
     diskon: string;
     pengiriman: number;
@@ -76,7 +75,7 @@ const EditPembayaran: FC<EditPembayaranProps> = ({ onSave }) => {
           icon="check"
           onPress={() => {
             onSave({
-              tanggal: estimasi ? formatDate(estimasi) : "",
+              tanggal: estimasi,
               metode: pembayaran,
               diskon,
               pengiriman: pengiriman ? Number(pengiriman) : 0,

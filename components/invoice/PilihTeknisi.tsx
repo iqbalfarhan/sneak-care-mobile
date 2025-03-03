@@ -1,5 +1,5 @@
+import { useGetKaryawan } from "@/hooks/setting/useKaryawan";
 import { useColor } from "@/hooks/useColor";
-import apiKaryawan from "@/utils/apis/apiKaryawan";
 import { User } from "@/utils/types/user";
 import React, { FC, useState } from "react";
 import { ScrollView, TouchableOpacity } from "react-native";
@@ -18,8 +18,10 @@ type PilihTeknisiProps = {
 const PilihTeknisi: FC<PilihTeknisiProps> = ({ teknisi, onSave }) => {
   const { color } = useColor();
   const [show, setShow] = useState<boolean>(false);
-  const data = apiKaryawan.getKaryawan();
   const [selected, setSelected] = useState<User | undefined>(teknisi);
+
+  const { data } = useGetKaryawan();
+
   return (
     <>
       {selected ? (
@@ -47,7 +49,7 @@ const PilihTeknisi: FC<PilihTeknisiProps> = ({ teknisi, onSave }) => {
         >
           <Wrapper gap={5}>
             {data
-              .filter((item) => item.role === "teknisi")
+              ?.filter((item) => item.role === "teknisi")
               .map((item) => (
                 <TouchableOpacity
                   key={item.id}

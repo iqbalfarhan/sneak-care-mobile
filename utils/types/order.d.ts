@@ -24,4 +24,5 @@ export type Order = {
   diskon?: Diskon;
   payment: Pembayaran;
   paid: boolean;
+  total_pay?: number;
 };

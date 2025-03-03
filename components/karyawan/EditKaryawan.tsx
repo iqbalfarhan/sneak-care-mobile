@@ -1,19 +1,23 @@
+import { useEditKaryawan } from "@/hooks/setting/useKaryawan";
 import { User, UserRole } from "@/utils/types/user";
 import React, { FC, useState } from "react";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
+import ErrorMessage from "../ErrorMessage";
 import IconButton from "../IconButton";
 import Input from "../Input";
 import Select from "../Select";
 import Wrapper from "../Wrapper";
 
 type EditKaryawanProps = {
-  karyawan?: User;
+  karyawan: User;
 };
 
 const EditKaryawan: FC<EditKaryawanProps> = ({ karyawan }) => {
-  const [values, setValues] = useState<User | undefined>(karyawan);
+  const [values, setValues] = useState<User>(karyawan);
   const [show, setShow] = useState<boolean>(false);
+
+  const { mutateAsync, isPending, error } = useEditKaryawan();
   return (
     <>
       <IconButton
@@ -49,10 +53,14 @@ const EditKaryawan: FC<EditKaryawanProps> = ({ karyawan }) => {
             }}
           />
         </Wrapper>
+        {error && <ErrorMessage message={error.message} />}
         <Button
           label="Simpan perubahan"
           icon="check"
-          onPress={() => setShow(false)}
+          disabled={isPending}
+          onPress={() => {
+            mutateAsync(values).then(() => setShow(false));
+          }}
         />
       </BottomSheet>
     </>

@@ -6,19 +6,24 @@ import KaryawanItem from "@/components/karyawan/KaryawanItem";
 import SwipeAction from "@/components/SwipeAction";
 import TabPill from "@/components/TabPill";
 import Wrapper from "@/components/Wrapper";
-import apiKaryawan from "@/utils/apis/apiKaryawan";
+import { useGetKaryawan } from "@/hooks/setting/useKaryawan";
 import React, { useState } from "react";
-import { ScrollView } from "react-native";
+import { RefreshControl, ScrollView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const karyawanScreen = () => {
   const [search, setSearch] = useState<string>("");
   const [tab, setTab] = useState<string>("");
-  const data = apiKaryawan.getKaryawan();
+  const { data, isLoading, refetch } = useGetKaryawan();
 
   return (
     <GestureHandlerRootView>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+        }
+      >
         <Wrapper padding={20} gap={20}>
           <Input
             placeholder="Cari karyawan..."
@@ -32,7 +37,7 @@ const karyawanScreen = () => {
           />
           <Wrapper gap={5}>
             {data
-              .filter((item) =>
+              ?.filter((item) =>
                 item.name
                   .toString()
                   .toLowerCase()
@@ -40,6 +45,7 @@ const karyawanScreen = () => {
                   ? true
                   : item.role === tab.toLowerCase(),
               )
+              .filter((item) => ["teknisi", "kasir"].includes(item.role))
               .map((karyawan) => (
                 <SwipeAction
                   key={karyawan.id}

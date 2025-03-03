@@ -1,8 +1,10 @@
-import { UserRole } from "@/utils/types/user";
+import { useCreateKaryawan } from "@/hooks/setting/useKaryawan";
+import { User, UserRole } from "@/utils/types/user";
 import React, { useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
+import ErrorMessage from "../ErrorMessage";
 import Input from "../Input";
 import PasswordToggler from "../PasswordToggler";
 import Select from "../Select";
@@ -16,6 +18,8 @@ const CreateKaryawan = () => {
   const [email, setEmail] = useState<string>("");
   const [role, setRole] = useState<UserRole>("teknisi");
   const [password, setPassword] = useState<string>("");
+
+  const { mutateAsync, isPending, error } = useCreateKaryawan();
 
   return (
     <GestureHandlerRootView>
@@ -58,7 +62,21 @@ const CreateKaryawan = () => {
           />
           <PasswordToggler show={showPass} setShow={setShowPass} />
         </Wrapper>
-        <Button label="Simpan karyawan baru" icon="check" />
+        {error && <ErrorMessage message={error.message} />}
+        <Button
+          disabled={isPending}
+          label="Simpan karyawan baru"
+          icon="check"
+          onPress={() => {
+            mutateAsync({ name, email, role, password } as User).then(() => {
+              setShow(false);
+              setName("");
+              setEmail("");
+              setRole("kasir");
+              setPassword("");
+            });
+          }}
+        />
       </BottomSheet>
     </GestureHandlerRootView>
   );
