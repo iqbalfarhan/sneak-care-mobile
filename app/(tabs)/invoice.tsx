@@ -3,11 +3,11 @@ import InvoiceItem from "@/components/invoice/InvoiceItem";
 import ScanInvoiceQr from "@/components/invoice/ScanInvoiceQr";
 import TabPill from "@/components/TabPill";
 import Wrapper from "@/components/Wrapper";
-import apiOrder from "@/utils/apis/apiOrder";
+import { useGetOrders } from "@/hooks/invoice/useOrder";
 import { OrderStatus } from "@/utils/types/order";
 import { router } from "expo-router";
 import React, { useState } from "react";
-import { ScrollView, TouchableOpacity } from "react-native";
+import { RefreshControl, ScrollView, TouchableOpacity } from "react-native";
 
 const InvoiceScreen = () => {
   const [search, setSearch] = useState<string>("");
@@ -17,11 +17,13 @@ const InvoiceScreen = () => {
     "draft",
     "progress",
     "done",
-    "canceled",
+    "cancelled",
     "complete",
   ];
 
-  const data = apiOrder.getOrders();
+  const { data, isLoading, refetch } = useGetOrders();
+
+  // return <Text>{JSON.stringify(data)}</Text>;
   return (
     <Wrapper flex={1}>
       <Wrapper flex={0} gap={10}>
@@ -54,9 +56,12 @@ const InvoiceScreen = () => {
           gap: 5,
           padding: 20,
         }}
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+        }
       >
         {data
-          .filter((item) =>
+          ?.filter((item) =>
             item.invoice_no
               .toString()
               .toLowerCase()

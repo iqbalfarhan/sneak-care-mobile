@@ -23,6 +23,7 @@ const features: Paket[] = [
       "Data teknisi dan kasir",
       "Pengaturan diskon",
       "Kirim invoice ke wa pelanggan",
+      "Tambah lebih banyak karyawan",
     ],
   },
 ];

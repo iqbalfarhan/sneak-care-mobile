@@ -10,34 +10,43 @@ import PelangganItem from "@/components/pelanggan/PelangganItem";
 import Text from "@/components/Text";
 import Timeline from "@/components/Timeline";
 import Wrapper from "@/components/Wrapper";
+import { useShowOrder } from "@/hooks/invoice/useOrder";
 import { useColor } from "@/hooks/useColor";
-import apiOrder from "@/utils/apis/apiOrder";
 import { formatRupiah } from "@/utils/helpers/currency";
+import dayjs from "dayjs";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
-import { ScrollView, ToastAndroid } from "react-native";
+import { RefreshControl, ScrollView, ToastAndroid } from "react-native";
 
 const InvoiceDetail = () => {
   const { color } = useColor();
   const { id } = useLocalSearchParams();
-  const data = apiOrder.getOrderById(Number(id));
+
+  const { data, isLoading, refetch } = useShowOrder(Number(id));
 
   if (!data) return <Loading />;
 
-  const kasir = data.kasir;
-  const teknisi = data.teknisi;
-  const barang = data.barang;
-  const pelanggan = data.pelanggan;
-  const pembayaran = data.payment;
-  const diskon = data.diskon;
-  const shipping = data.shipping_cost;
+  const kasir = data?.kasir;
+  const teknisi = data?.teknisi;
+  const barang = data?.barang;
+  const pelanggan = data?.pelanggan;
+  const pembayaran = data?.payment;
+  const diskon = data?.diskon;
+  const shipping = data?.shipping_cost;
 
   return (
     <Wrapper flex={1}>
       <Wrapper flex={1}>
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+          }
+        >
           <Wrapper padding={20} gap={20}>
-            <InvoiceCard invoice={data} />
+            <InvoiceCard
+              invoice={data}
+              onChangeStatus={(status) => (data.status = status)}
+            />
             <Wrapper gap={5}>
               <Text>Pelanggan</Text>
               <PelangganItem pelanggan={pelanggan} />
@@ -63,7 +72,9 @@ const InvoiceDetail = () => {
                 <Wrapper>
                   <Wrapper flexDirection="row" justifyContent="space-between">
                     <Text variant="label">Estimasi selesai</Text>
-                    <Text>{data.estimate_date.toDateString()}</Text>
+                    <Text>
+                      {dayjs(data.estimate_date).format("DD MMMM YYYY")}
+                    </Text>
                   </Wrapper>
                   <Wrapper flexDirection="row" justifyContent="space-between">
                     <Text variant="label">Metode bayar</Text>
@@ -141,7 +152,7 @@ const InvoiceDetail = () => {
       </Wrapper>
       <Wrapper flex={0} padding={20} gap={10}>
         <Wrapper gap={10} flexDirection="row">
-          <MoreActions />
+          <MoreActions invoice={data} />
           <Button
             label="Cetak resi untuk teknisi"
             color="input"

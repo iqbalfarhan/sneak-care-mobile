@@ -1,4 +1,5 @@
 import { useColor } from "@/hooks/useColor";
+import { generateAvatarLink } from "@/utils/helpers/text";
 import { User } from "@/utils/types/user";
 import React, { FC } from "react";
 import Avatar from "../Avatar";
@@ -25,7 +26,7 @@ const KaryawanItem: FC<KaryawanItemProps> = ({ karyawan }) => {
         size={40}
         fallback="DD"
         src={{
-          uri: karyawan.photo,
+          uri: karyawan.photo ?? generateAvatarLink(karyawan.name),
         }}
       />
       <Wrapper>

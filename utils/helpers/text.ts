@@ -37,7 +37,7 @@ export const statusDescription = (
           "Selesai, order ini sudah selesai dan sudah diambil oleh pelanggan.",
         color: "success",
       };
-    case "canceled":
+    case "cancelled":
       return {
         message: "Pesanan dibatalkan, dan tidak dilanjutkan lagi.",
         color: "error",
@@ -83,4 +83,19 @@ export const formatDate = (date: Date): string => {
   const year = date.getFullYear();
 
   return `${day} ${month} ${year}`;
+};
+
+export const getGreeting = (): string => {
+  const now = new Date();
+  const hours = now.getHours();
+
+  if (hours >= 5 && hours < 12) {
+    return "Selamat pagi!";
+  } else if (hours >= 12 && hours < 15) {
+    return "Selamat siang!";
+  } else if (hours >= 15 && hours < 18) {
+    return "Selamat sore!";
+  } else {
+    return "Selamat malam!";
+  }
 };

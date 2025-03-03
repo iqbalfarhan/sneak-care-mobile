@@ -2,6 +2,7 @@ import { ThemeColors, useColor } from "@/hooks/useColor";
 import { formatRupiah } from "@/utils/helpers/currency";
 import { generateAvatarLink, statusDescription } from "@/utils/helpers/text";
 import { Order } from "@/utils/types/order";
+import { Octicons } from "@expo/vector-icons";
 import React, { FC } from "react";
 import Avatar from "../Avatar";
 import Card from "../Card";
@@ -30,7 +31,16 @@ const InvoiceItem: FC<InvoiceItemProps> = ({ invoice, color = "card" }) => {
           gap={5}
           justifyContent="space-between"
         >
-          <Text style={{ fontFamily: "Bold" }}>{invoice.invoice_no}</Text>
+          <Wrapper flexDirection="row" alignItems="center" gap={5}>
+            <Text style={{ fontFamily: "Bold" }}>{invoice.invoice_no}</Text>
+            {invoice.paid ? (
+              <Octicons
+                name="check-circle-fill"
+                color={theme.accent.bg}
+                size={12}
+              />
+            ) : null}
+          </Wrapper>
           <Text
             variant="label"
             color={bg}
@@ -57,8 +67,8 @@ const InvoiceItem: FC<InvoiceItemProps> = ({ invoice, color = "card" }) => {
           <Text variant="label">
             {formatRupiah(
               barang
-                .flatMap((item) => item.layanan.harga)
-                .reduce((a, b) => a + b, 0),
+                .flatMap((item) => item.layanan.price)
+                .reduce((a, b) => Number(a) + Number(b), 0),
             )}
           </Text>
         </Wrapper>

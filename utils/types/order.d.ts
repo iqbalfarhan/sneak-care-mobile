@@ -9,7 +9,7 @@ export type OrderStatus =
   | "progress"
   | "done"
   | "complete"
-  | "canceled";
+  | "cancelled";
 
 export type Order = {
   id: number;
@@ -23,4 +23,5 @@ export type Order = {
   pelanggan: Pelanggan;
   diskon?: Diskon;
   payment: Pembayaran;
+  paid: boolean;
 };

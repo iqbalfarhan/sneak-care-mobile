@@ -15,9 +15,11 @@ const BarangLayananItem: FC<BarangLayananItemProps> = ({ item }) => {
   return (
     <Card
       header={
-        <Wrapper flexDirection="row" justifyContent="space-between">
-          <Text variant="menutitle">{item.name}</Text>
-          <Text variant="label" color={color.primary.bg}>
+        <Wrapper flexDirection="row" justifyContent="space-between" gap={20}>
+          <Text variant="menutitle" style={{ flex: 1 }}>
+            {item.name}
+          </Text>
+          <Text variant="label" color={color.primary.bg} style={{ flex: 0 }}>
             {formatRupiah(item.layanan.price)}
           </Text>
         </Wrapper>

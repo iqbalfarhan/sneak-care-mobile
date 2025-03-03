@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import { Order } from "@/utils/types/order";
+import React, { FC, useState } from "react";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
 import IconButton from "../IconButton";
 import Wrapper from "../Wrapper";
 
-const MoreActions = () => {
+type MoreActionsProps = {
+  invoice: Order;
+};
+
+const MoreActions: FC<MoreActionsProps> = ({ invoice }) => {
   const [show, setShow] = useState(false);
   const [status, setStatus] = useState<string>();
   return (
@@ -19,9 +24,29 @@ const MoreActions = () => {
         title="Action lainnya"
         onRequestClose={() => setShow(false)}
       >
-        <Wrapper>
-          <Button label="Edit status order" color="card" align="flex-start" />
-          <Button label="Kirim WA pelanggan" color="card" align="flex-start" />
+        <Wrapper gap={5}>
+          {invoice.paid ? (
+            <Button
+              label="Tandai belum dibayar"
+              color="card"
+              icon="x"
+              align="flex-start"
+            />
+          ) : (
+            <Button
+              label="Tandai sudah dibayar"
+              color="card"
+              icon="check"
+              align="flex-start"
+            />
+          )}
+
+          <Button
+            label="Kirim invoice digital ke pelanggan"
+            icon="comment"
+            color="card"
+            align="flex-start"
+          />
         </Wrapper>
       </BottomSheet>
     </>

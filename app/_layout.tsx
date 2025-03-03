@@ -38,6 +38,7 @@ const RootLayout = () => {
           <Stack
             screenOptions={{
               headerShown: false,
+              presentation: "card",
             }}
           >
             <Stack.Screen name="(auth)" />
