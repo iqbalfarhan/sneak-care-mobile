@@ -5,10 +5,10 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
 import ErrorMessage from "../ErrorMessage";
+import FormGroup from "../FormGroup";
 import Input from "../Input";
 import PasswordToggler from "../PasswordToggler";
 import Select from "../Select";
-import Wrapper from "../Wrapper";
 
 const CreateKaryawan = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -33,7 +33,7 @@ const CreateKaryawan = () => {
         title="Create karyawan"
         onRequestClose={() => setShow(false)}
       >
-        <Wrapper gap={10}>
+        <FormGroup>
           <Input
             label="Nama karyawan"
             placeholder="Nama karyawan"
@@ -61,7 +61,7 @@ const CreateKaryawan = () => {
             onChangeText={setPassword}
           />
           <PasswordToggler show={showPass} setShow={setShowPass} />
-        </Wrapper>
+        </FormGroup>
         {error && <ErrorMessage message={error.message} />}
         <Button
           disabled={isPending}

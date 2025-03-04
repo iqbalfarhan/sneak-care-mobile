@@ -12,7 +12,7 @@ import Timeline from "@/components/Timeline";
 import Wrapper from "@/components/Wrapper";
 import { useShowOrder } from "@/hooks/invoice/useOrder";
 import { useColor } from "@/hooks/useColor";
-import { formatRupiah } from "@/utils/helpers/currency";
+import { formatRupiah, generateBiayaLayanan } from "@/utils/helpers/currency";
 import dayjs from "dayjs";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
@@ -78,25 +78,25 @@ const InvoiceDetail = () => {
                   </Wrapper>
                   <Wrapper flexDirection="row" justifyContent="space-between">
                     <Text variant="label">Metode bayar</Text>
-                    <Text>{pembayaran?.name ?? ""}</Text>
+                    <Text>{pembayaran?.name ?? "Pembayaran tunai"}</Text>
+                  </Wrapper>
+                  <Wrapper flexDirection="row" justifyContent="space-between">
+                    <Text variant="label">Biaya layanan</Text>
+                    <Text>{formatRupiah(generateBiayaLayanan(barang))}</Text>
                   </Wrapper>
                   <Wrapper flexDirection="row" justifyContent="space-between">
                     <Text variant="label">Diskon</Text>
-                    <Text>{diskon?.value}</Text>
+                    <Text>
+                      {diskon
+                        ? diskon?.type === "amount"
+                          ? formatRupiah(diskon?.value)
+                          : diskon?.value + "%"
+                        : ""}
+                    </Text>
                   </Wrapper>
                   <Wrapper flexDirection="row" justifyContent="space-between">
                     <Text variant="label">Biaya pengiriman</Text>
                     <Text>{formatRupiah(shipping)}</Text>
-                  </Wrapper>
-                  <Wrapper flexDirection="row" justifyContent="space-between">
-                    <Text variant="label">Biaya layanan</Text>
-                    <Text>
-                      {formatRupiah(
-                        barang
-                          .flatMap((item) => item.layanan.price)
-                          .reduce((acc, curr) => acc + curr, 0),
-                      )}
-                    </Text>
                   </Wrapper>
                 </Wrapper>
               </Card>
@@ -105,6 +105,7 @@ const InvoiceDetail = () => {
               <Text>Petugas</Text>
               <KaryawanItem karyawan={kasir} />
               <PilihTeknisi
+                invoice={data}
                 teknisi={teknisi}
                 onSave={(teknisi) => {
                   data.teknisi = teknisi;

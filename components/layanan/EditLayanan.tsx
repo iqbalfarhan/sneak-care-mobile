@@ -4,10 +4,10 @@ import { Layanan } from "@/utils/types/layanan";
 import React, { FC, useState } from "react";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
+import FormGroup from "../FormGroup";
 import IconButton from "../IconButton";
 import Input from "../Input";
 import Text from "../Text";
-import Wrapper from "../Wrapper";
 
 type EditLayananProps = {
   layanan: Layanan;
@@ -36,7 +36,7 @@ const EditLayanan: FC<EditLayananProps> = ({ layanan }) => {
         visible={show}
         onRequestClose={() => setShow(false)}
       >
-        <Wrapper gap={10}>
+        <FormGroup>
           <Input
             label="Nama layanan"
             placeholder="Nama layanan"
@@ -47,6 +47,7 @@ const EditLayanan: FC<EditLayananProps> = ({ layanan }) => {
             label="Keterangan"
             placeholder="Deskripsi"
             value={description}
+            multiline
             onChangeText={setDescription}
           />
           <Input
@@ -56,7 +57,7 @@ const EditLayanan: FC<EditLayananProps> = ({ layanan }) => {
             value={price}
             onChangeText={setPrice}
           />
-        </Wrapper>
+        </FormGroup>
         {error && (
           <Text color={color.error.bg} variant="label">
             {error.message}

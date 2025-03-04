@@ -4,10 +4,10 @@ import React, { FC, useState } from "react";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
 import ErrorMessage from "../ErrorMessage";
+import FormGroup from "../FormGroup";
 import IconButton from "../IconButton";
 import Input from "../Input";
 import Select from "../Select";
-import Wrapper from "../Wrapper";
 
 type EditDiskonProps = {
   diskon: Diskon;
@@ -40,7 +40,7 @@ const EditDiskon: FC<EditDiskonProps> = ({ diskon }) => {
         visible={show}
         onRequestClose={() => setShow(false)}
       >
-        <Wrapper gap={15}>
+        <FormGroup>
           <Input
             label="Nama diskon"
             placeholder="Nama diskon"
@@ -51,6 +51,7 @@ const EditDiskon: FC<EditDiskonProps> = ({ diskon }) => {
             label="Keterangan diskon"
             placeholder="Deskripsi diskon"
             value={description}
+            multiline
             onChangeText={setDescription}
           />
           <Select
@@ -68,7 +69,7 @@ const EditDiskon: FC<EditDiskonProps> = ({ diskon }) => {
             value={value.toString()}
             onChangeText={(text) => setValue(Number(text))}
           />
-        </Wrapper>
+        </FormGroup>
 
         {error && <ErrorMessage message={error.message} />}
 

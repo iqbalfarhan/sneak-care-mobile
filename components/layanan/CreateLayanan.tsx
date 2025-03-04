@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
+import FormGroup from "../FormGroup";
 import Input from "../Input";
 import Text from "../Text";
-import Wrapper from "../Wrapper";
 
 const CreateLayanan = () => {
   const { color } = useColor();
@@ -29,7 +29,7 @@ const CreateLayanan = () => {
         visible={show}
         onRequestClose={() => setShow(false)}
       >
-        <Wrapper gap={10}>
+        <FormGroup>
           <Input
             label="Nama layanan"
             placeholder="Nama layanan"
@@ -41,6 +41,7 @@ const CreateLayanan = () => {
             placeholder="Deskripsi"
             value={description}
             onChangeText={setDescription}
+            multiline
           />
           <Input
             label="Harga layanan"
@@ -49,7 +50,7 @@ const CreateLayanan = () => {
             value={price}
             onChangeText={setPrice}
           />
-        </Wrapper>
+        </FormGroup>
         {error && (
           <Text color={color.error.bg} variant="label">
             {error.message}

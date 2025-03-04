@@ -1,4 +1,7 @@
-import apiOrder, { createOrderPayload } from "@/utils/apis/apiOrder";
+import apiOrder, {
+  createOrderPayload,
+  EditOrderPayload,
+} from "@/utils/apis/apiOrder";
 import { Order } from "@/utils/types/order";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -30,8 +33,8 @@ export const useCreateOrder = () => {
 export const useEditOrder = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (payload: createOrderPayload) =>
-      await apiOrder.postOrder(payload),
+    mutationFn: async (payload: EditOrderPayload) =>
+      await apiOrder.putOrder(payload),
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ["orders"] });
     },

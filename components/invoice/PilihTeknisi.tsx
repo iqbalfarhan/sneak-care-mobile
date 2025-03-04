@@ -1,26 +1,31 @@
+import { useEditOrder } from "@/hooks/invoice/useOrder";
 import { useGetKaryawan } from "@/hooks/setting/useKaryawan";
 import { useColor } from "@/hooks/useColor";
+import { Order } from "@/utils/types/order";
 import { User } from "@/utils/types/user";
 import React, { FC, useState } from "react";
 import { ScrollView, TouchableOpacity } from "react-native";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
+import ErrorMessage from "../ErrorMessage";
 import Input from "../Input";
 import Text from "../Text";
 import Wrapper from "../Wrapper";
 import KaryawanItem from "../karyawan/KaryawanItem";
 
 type PilihTeknisiProps = {
+  invoice: Order;
   teknisi?: User;
   onSave: (teknisi: User) => void;
 };
 
-const PilihTeknisi: FC<PilihTeknisiProps> = ({ teknisi, onSave }) => {
+const PilihTeknisi: FC<PilihTeknisiProps> = ({ invoice, teknisi, onSave }) => {
   const { color } = useColor();
   const [show, setShow] = useState<boolean>(false);
   const [selected, setSelected] = useState<User | undefined>(teknisi);
 
   const { data } = useGetKaryawan();
+  const { mutateAsync, isPending, error } = useEditOrder();
 
   return (
     <>
@@ -73,12 +78,20 @@ const PilihTeknisi: FC<PilihTeknisiProps> = ({ teknisi, onSave }) => {
         <Text variant="label">
           Setelah pilih karyawan status order akan otomatis berubah ke progress
         </Text>
+        {error && <ErrorMessage message={error.message} />}
         <Button
           label="Pilih teknisi"
           icon="check"
+          disabled={isPending}
           onPress={() => {
-            onSave(teknisi!);
-            setShow(false);
+            mutateAsync({
+              id: invoice.id,
+              teknisi_id: selected?.id,
+              status: "progress",
+            }).then(() => {
+              onSave(teknisi!);
+              setShow(false);
+            });
           }}
         />
       </BottomSheet>

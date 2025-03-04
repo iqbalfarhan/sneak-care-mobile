@@ -3,6 +3,7 @@ import { useColor } from "@/hooks/useColor";
 import React, { FC, useState } from "react";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
+import FormGroup from "../FormGroup";
 import IconButton from "../IconButton";
 import Input from "../Input";
 import Text from "../Text";
@@ -39,7 +40,7 @@ const CreatePelanggan: FC<CreatePelangganProps> = ({ fab }) => {
         title="Create Pelanggan"
         onRequestClose={() => setShow(false)}
       >
-        <Wrapper gap={10}>
+        <FormGroup>
           <Input
             label="Nama pelanggan"
             placeholder="Nama pelanggan"
@@ -53,7 +54,7 @@ const CreatePelanggan: FC<CreatePelangganProps> = ({ fab }) => {
             value={phone}
             onChangeText={setPhone}
           />
-        </Wrapper>
+        </FormGroup>
         {error && (
           <Text variant="label" color={color.error.bg}>
             {error.message}

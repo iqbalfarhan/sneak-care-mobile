@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
+import FormGroup from "../FormGroup";
 import Input from "../Input";
 import Select from "../Select";
-import Wrapper from "../Wrapper";
 
 const CreateDiskon = () => {
   const [name, setName] = useState<string>("");
@@ -25,13 +25,15 @@ const CreateDiskon = () => {
         onMagicTap={() => setShow(false)}
         onRequestClose={() => setShow(false)}
       >
-        <Wrapper gap={5}>
+        <FormGroup>
           <Input
+            label="Nama diskon"
             placeholder="Nama diskon"
             value={name}
             onChangeText={setName}
           />
           <Input
+            label="Deskripsi diskon"
             placeholder="Deskripsi diskon"
             value={description}
             onChangeText={setDescription}
@@ -40,16 +42,18 @@ const CreateDiskon = () => {
             withReset={false}
             value={jenis}
             onChange={setJenis}
+            label="Jenis diskon"
             placeholder="Jenis diskon"
             options={["Potongan persen", "Potongan nominal"]}
           />
           <Input
+            label="Nominal"
             placeholder="Nominal"
             inputMode="numeric"
             value={value}
             onChangeText={setValue}
           />
-        </Wrapper>
+        </FormGroup>
         <Button
           label="Simpan diskon baru"
           icon="check"

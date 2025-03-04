@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import FormGroup from "@/components/FormGroup";
 import Input from "@/components/Input";
 import PasswordToggler from "@/components/PasswordToggler";
 import UserCard from "@/components/setting/UserCard";
@@ -12,7 +13,7 @@ const ProfileScreen = () => {
     <ScrollView>
       <Wrapper padding={20} gap={20}>
         <UserCard />
-        <Wrapper gap={10}>
+        <FormGroup>
           <Input
             label="Nama lengkap"
             placeholder="Nama user"
@@ -36,7 +37,7 @@ const ProfileScreen = () => {
           />
 
           <PasswordToggler show={show} setShow={setShow} />
-        </Wrapper>
+        </FormGroup>
         <Button
           label="Simpan perubahan"
           icon="check"

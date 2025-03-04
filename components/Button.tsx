@@ -7,6 +7,7 @@ import {
   ViewStyle,
 } from "react-native";
 import Text from "./Text";
+import Wrapper from "./Wrapper";
 
 type ButtonProps = TouchableOpacityProps & {
   label: string;
@@ -48,7 +49,16 @@ const Button: FC<ButtonProps> = ({
       disabled={disabled || loading}
       {...props}
     >
-      {icon && <Octicons name={icon} size={20} color={content} />}
+      {icon && (
+        <Wrapper
+          height={20}
+          width={20}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Octicons name={icon} size={20} color={content} />
+        </Wrapper>
+      )}
       <Text color={content} variant="button">
         {label}
       </Text>

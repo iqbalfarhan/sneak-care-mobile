@@ -4,10 +4,10 @@ import React, { FC, useState } from "react";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
 import ErrorMessage from "../ErrorMessage";
+import FormGroup from "../FormGroup";
 import IconButton from "../IconButton";
 import Input from "../Input";
 import Select from "../Select";
-import Wrapper from "../Wrapper";
 
 type EditKaryawanProps = {
   karyawan: User;
@@ -31,7 +31,7 @@ const EditKaryawan: FC<EditKaryawanProps> = ({ karyawan }) => {
         visible={show}
         onRequestClose={() => setShow(false)}
       >
-        <Wrapper gap={15}>
+        <FormGroup>
           <Input
             label="Nama karyawan"
             value={values?.name}
@@ -52,7 +52,7 @@ const EditKaryawan: FC<EditKaryawanProps> = ({ karyawan }) => {
               setValues({ ...values, role: value as UserRole });
             }}
           />
-        </Wrapper>
+        </FormGroup>
         {error && <ErrorMessage message={error.message} />}
         <Button
           label="Simpan perubahan"

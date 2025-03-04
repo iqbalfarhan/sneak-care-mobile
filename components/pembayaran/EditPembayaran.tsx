@@ -4,10 +4,10 @@ import React, { FC, useState } from "react";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
 import ErrorMessage from "../ErrorMessage";
+import FormGroup from "../FormGroup";
 import IconButton from "../IconButton";
 import Input from "../Input";
 import Select from "../Select";
-import Wrapper from "../Wrapper";
 
 type EditPembayaranProps = {
   pembayaran: Pembayaran;
@@ -41,7 +41,7 @@ const EditPembayaran: FC<EditPembayaranProps> = ({ pembayaran }) => {
         visible={show}
         onRequestClose={() => setShow(false)}
       >
-        <Wrapper gap={15}>
+        <FormGroup>
           <Input
             label="Nama metode bayar"
             placeholder="Nama metode bayar"
@@ -62,7 +62,7 @@ const EditPembayaran: FC<EditPembayaranProps> = ({ pembayaran }) => {
             value={accountNumber}
             onChangeText={setAccountNumber}
           />
-        </Wrapper>
+        </FormGroup>
         {error && <ErrorMessage message={error.message} />}
         <Button
           label="Simpan"

@@ -2,6 +2,7 @@ import { Order } from "@/utils/types/order";
 import React, { FC, useState } from "react";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
+import Divider from "../Divider";
 import IconButton from "../IconButton";
 import Wrapper from "../Wrapper";
 
@@ -11,7 +12,7 @@ type MoreActionsProps = {
 
 const MoreActions: FC<MoreActionsProps> = ({ invoice }) => {
   const [show, setShow] = useState(false);
-  const [status, setStatus] = useState<string>();
+  const [status, setStatus] = useState<string>(invoice.status);
   return (
     <>
       <IconButton
@@ -25,6 +26,13 @@ const MoreActions: FC<MoreActionsProps> = ({ invoice }) => {
         onRequestClose={() => setShow(false)}
       >
         <Wrapper gap={5}>
+          <Button
+            label="Hapus invoice ini"
+            icon="trash"
+            color="card"
+            align="flex-start"
+          />
+          <Divider />
           {invoice.paid ? (
             <Button
               label="Tandai belum dibayar"

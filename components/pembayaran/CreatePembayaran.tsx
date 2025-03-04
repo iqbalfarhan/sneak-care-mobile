@@ -4,9 +4,9 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
 import ErrorMessage from "../ErrorMessage";
+import FormGroup from "../FormGroup";
 import Input from "../Input";
 import Select from "../Select";
-import Wrapper from "../Wrapper";
 
 type CreatePembayaranProps = {};
 
@@ -33,7 +33,7 @@ const CreatePembayaran: FC<CreatePembayaranProps> = () => {
         visible={show}
         onRequestClose={() => setShow(false)}
       >
-        <Wrapper gap={15}>
+        <FormGroup>
           <Input
             label="Nama metode bayar"
             placeholder="Nama metode bayar"
@@ -54,7 +54,7 @@ const CreatePembayaran: FC<CreatePembayaranProps> = () => {
             value={accountNumber}
             onChangeText={setAccountNumber}
           />
-        </Wrapper>
+        </FormGroup>
         {error && <ErrorMessage message={error.message} />}
         <Button
           label="Simpan"

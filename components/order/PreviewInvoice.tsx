@@ -12,9 +12,14 @@ import Wrapper from "../Wrapper";
 type PreviewInvoiceProps = {
   style?: ViewStyle;
   payload: createOrderPayload;
+  onSuccess?: () => void;
 };
 
-const PreviewInvoice: FC<PreviewInvoiceProps> = ({ style, payload }) => {
+const PreviewInvoice: FC<PreviewInvoiceProps> = ({
+  style,
+  payload,
+  onSuccess,
+}) => {
   const [show, setShow] = useState<boolean>(false);
   const { mutateAsync, isPending, error } = useCreateOrder();
 
@@ -41,8 +46,8 @@ const PreviewInvoice: FC<PreviewInvoiceProps> = ({ style, payload }) => {
           disabled={isPending}
           onPress={() => {
             mutateAsync(payload).then((data) => {
-              // console.log(JSON.stringify(data, null, 4));
               setShow(false);
+              onSuccess?.();
               router.push({
                 pathname: "/invoice/[id]",
                 params: { id: data.id },

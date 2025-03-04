@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import FormGroup from "@/components/FormGroup";
 import Input from "@/components/Input";
 import TokoCard from "@/components/setting/TokoCard";
 import Wrapper from "@/components/Wrapper";
@@ -16,7 +17,7 @@ const TokoScreen = () => {
   return (
     <Wrapper padding={20} gap={20}>
       <TokoCard />
-      <Wrapper gap={10}>
+      <FormGroup>
         <Input
           label="Nama toko"
           placeholder="Nama toko"
@@ -43,7 +44,7 @@ const TokoScreen = () => {
           value={instagram}
           onChangeText={setInstagram}
         />
-      </Wrapper>
+      </FormGroup>
       <Button label="Simpan perubahan" icon="check" />
     </Wrapper>
   );

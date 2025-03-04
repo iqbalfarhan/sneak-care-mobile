@@ -4,10 +4,10 @@ import { Pelanggan } from "@/utils/types/pelanggan";
 import React, { FC, useState } from "react";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
+import FormGroup from "../FormGroup";
 import IconButton from "../IconButton";
 import Input from "../Input";
 import Text from "../Text";
-import Wrapper from "../Wrapper";
 
 type EditPelangganProps = {
   pelanggan: Pelanggan;
@@ -35,7 +35,7 @@ const EditPelanggan: FC<EditPelangganProps> = ({ pelanggan }) => {
         visible={show}
         onRequestClose={() => setShow(false)}
       >
-        <Wrapper gap={10}>
+        <FormGroup>
           <Input
             label="Nama pelanggan"
             placeholder="Nama pelanggan"
@@ -49,7 +49,7 @@ const EditPelanggan: FC<EditPelangganProps> = ({ pelanggan }) => {
             value={phone}
             onChangeText={setPhone}
           />
-        </Wrapper>
+        </FormGroup>
         {error && (
           <Text variant="label" color={color.error.bg}>
             {error.message}
