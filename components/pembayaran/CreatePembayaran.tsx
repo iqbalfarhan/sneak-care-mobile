@@ -59,7 +59,7 @@ const CreatePembayaran: FC<CreatePembayaranProps> = () => {
         <Button
           label="Simpan"
           icon="check"
-          disabled={isPending}
+          loading={isPending}
           onPress={() => {
             const payload = {
               bank_id:

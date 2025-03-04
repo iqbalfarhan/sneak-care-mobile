@@ -45,6 +45,9 @@ const apiOrder = {
     const { data } = await api.post(`/order`, payload);
     return data;
   },
+  deleteOrder: async (id: Order["id"]) => {
+    return await api.delete(`/order/${id}`);
+  },
 };
 
 export default apiOrder;

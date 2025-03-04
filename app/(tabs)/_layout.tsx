@@ -1,4 +1,5 @@
 import Loading from "@/components/Loading";
+import Wrapper from "@/components/Wrapper";
 import { useColor } from "@/hooks/useColor";
 import { useSession } from "@/hooks/useSession";
 import { Octicons } from "@expo/vector-icons";
@@ -10,7 +11,11 @@ const TabsLayout = () => {
   const { session, isLoading } = useSession();
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <Wrapper backgroundColor={color.base.bg} flex={1}>
+        <Loading />
+      </Wrapper>
+    );
   }
 
   if (!session) {

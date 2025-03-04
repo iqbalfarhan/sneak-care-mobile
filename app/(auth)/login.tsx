@@ -64,7 +64,7 @@ const LoginScreen = () => {
           label="Login as owner"
           icon="sign-in"
           onPress={handleLogin}
-          disabled={isPending}
+          loading={isPending}
         />
       </Wrapper>
       <Text onPress={() => router.push("/register")}>

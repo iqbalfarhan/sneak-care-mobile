@@ -82,7 +82,7 @@ const PilihTeknisi: FC<PilihTeknisiProps> = ({ invoice, teknisi, onSave }) => {
         <Button
           label="Pilih teknisi"
           icon="check"
-          disabled={isPending}
+          loading={isPending}
           onPress={() => {
             mutateAsync({
               id: invoice.id,

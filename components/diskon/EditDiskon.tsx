@@ -76,7 +76,7 @@ const EditDiskon: FC<EditDiskonProps> = ({ diskon }) => {
         <Button
           label="Simpan perubahan"
           icon="check"
-          disabled={isPending}
+          loading={isPending}
           onPress={() => {
             mutateAsync({
               id: diskon.id,

@@ -57,7 +57,7 @@ const EditKaryawan: FC<EditKaryawanProps> = ({ karyawan }) => {
         <Button
           label="Simpan perubahan"
           icon="check"
-          disabled={isPending}
+          loading={isPending}
           onPress={() => {
             mutateAsync(values).then(() => setShow(false));
           }}

@@ -5,6 +5,7 @@ import Button from "../Button";
 import Divider from "../Divider";
 import IconButton from "../IconButton";
 import Wrapper from "../Wrapper";
+import DeleteInvoice from "./DeleteInvoice";
 
 type MoreActionsProps = {
   invoice: Order;
@@ -26,12 +27,7 @@ const MoreActions: FC<MoreActionsProps> = ({ invoice }) => {
         onRequestClose={() => setShow(false)}
       >
         <Wrapper gap={5}>
-          <Button
-            label="Hapus invoice ini"
-            icon="trash"
-            color="card"
-            align="flex-start"
-          />
+          <DeleteInvoice invoice={invoice} />
           <Divider />
           {invoice.paid ? (
             <Button

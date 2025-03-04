@@ -23,7 +23,11 @@ const Avatar: FC<AvatarProps> = ({ size = 48, fallback, src }) => {
       overflow="hidden"
     >
       {src ? (
-        <Image source={src} style={{ width: size, height: size }} />
+        <Image
+          source={src}
+          style={{ width: size, height: size, resizeMode: "cover" }}
+          resizeMode="cover"
+        />
       ) : (
         <Text>{fallback}</Text>
       )}

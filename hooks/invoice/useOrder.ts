@@ -40,3 +40,13 @@ export const useEditOrder = () => {
     },
   });
 };
+
+export const useDeleteOrder = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: Order["id"]) => await apiOrder.deleteOrder(id),
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+    },
+  });
+};

@@ -64,13 +64,7 @@ const InvoiceItem: FC<InvoiceItemProps> = ({ invoice, color = "card" }) => {
             />
             <Text variant="label">{pelanggan?.name ?? "Belum dipickup"}</Text>
           </Wrapper>
-          <Text variant="label">
-            {formatRupiah(
-              barang
-                .flatMap((item) => item.layanan.price)
-                .reduce((a, b) => Number(a) + Number(b), 0),
-            )}
-          </Text>
+          <Text variant="label">{formatRupiah(invoice?.total_pay ?? 0)}</Text>
         </Wrapper>
       }
     >

@@ -62,7 +62,7 @@ const RegisterScreen = () => {
       </Wrapper>
       {error && <ErrorMessage message={error.message} />}
       <Button
-        disabled={isPending}
+        loading={isPending}
         label="Register as owner"
         icon="person-add"
         onPress={() => {

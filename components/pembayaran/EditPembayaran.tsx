@@ -19,7 +19,7 @@ const EditPembayaran: FC<EditPembayaranProps> = ({ pembayaran }) => {
 
   const [name, setName] = useState<string>(pembayaran.name);
   const [bank, setBank] = useState<string>(
-    banks?.find((bank) => bank.id === pembayaran.bank_id)?.name ?? "",
+    banks?.find((bank) => bank.id === pembayaran.bank?.id)?.name ?? "",
   );
   const [accountNumber, setAccountNumber] = useState<string>(
     pembayaran.account_number,
@@ -67,7 +67,7 @@ const EditPembayaran: FC<EditPembayaranProps> = ({ pembayaran }) => {
         <Button
           label="Simpan"
           icon="check"
-          disabled={isPending}
+          loading={isPending}
           onPress={() => {
             const payload = {
               id: pembayaran.id,
@@ -78,9 +78,6 @@ const EditPembayaran: FC<EditPembayaranProps> = ({ pembayaran }) => {
             };
             mutateAsync(payload).then(() => {
               setShow(false);
-              setName("");
-              setBank("");
-              setAccountNumber("");
             });
           }}
         />

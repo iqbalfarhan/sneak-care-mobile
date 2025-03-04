@@ -79,7 +79,7 @@ const InvoiceCard: FC<InvoiceCardProps> = ({ invoice, onChangeStatus }) => {
         </FormGroup>
         {error && <ErrorMessage message={error.message} />}
         <Button
-          disabled={isPending}
+          loading={isPending}
           label="Simpan perubahaan status"
           icon="check"
           onPress={() => {

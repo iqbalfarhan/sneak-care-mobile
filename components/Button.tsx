@@ -6,6 +6,7 @@ import {
   TouchableOpacityProps,
   ViewStyle,
 } from "react-native";
+import SpinningView from "./SpinningView";
 import Text from "./Text";
 import Wrapper from "./Wrapper";
 
@@ -49,15 +50,21 @@ const Button: FC<ButtonProps> = ({
       disabled={disabled || loading}
       {...props}
     >
-      {icon && (
-        <Wrapper
-          height={20}
-          width={20}
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Octicons name={icon} size={20} color={content} />
-        </Wrapper>
+      {loading ? (
+        <SpinningView>
+          <Octicons name="sync" size={20} />
+        </SpinningView>
+      ) : (
+        icon && (
+          <Wrapper
+            height={20}
+            width={20}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Octicons name={icon} size={20} color={content} />
+          </Wrapper>
+        )
       )}
       <Text color={content} variant="button">
         {label}

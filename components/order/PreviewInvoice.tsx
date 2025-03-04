@@ -30,7 +30,9 @@ const PreviewInvoice: FC<PreviewInvoiceProps> = ({
         icon="check"
         style={style}
         onPress={() => setShow(true)}
+        disabled={payload.barang.length === 0 || payload.customer_id === null}
       />
+
       <BottomSheet
         visible={show}
         title="Preview invoice"
@@ -43,7 +45,7 @@ const PreviewInvoice: FC<PreviewInvoiceProps> = ({
         <Button
           label="Lanjut proses pesanan"
           icon="check"
-          disabled={isPending}
+          loading={isPending}
           onPress={() => {
             mutateAsync(payload).then((data) => {
               setShow(false);

@@ -70,7 +70,7 @@ const CreatePelanggan: FC<CreatePelangganProps> = ({ fab }) => {
               setPhone("");
             });
           }}
-          disabled={isPending}
+          loading={isPending}
         />
       </BottomSheet>
     </Wrapper>

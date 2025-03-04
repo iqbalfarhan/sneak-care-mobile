@@ -64,7 +64,7 @@ const CreateKaryawan = () => {
         </FormGroup>
         {error && <ErrorMessage message={error.message} />}
         <Button
-          disabled={isPending}
+          loading={isPending}
           label="Simpan karyawan baru"
           icon="check"
           onPress={() => {

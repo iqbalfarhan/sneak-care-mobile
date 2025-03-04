@@ -63,7 +63,7 @@ const EditPelanggan: FC<EditPelangganProps> = ({ pelanggan }) => {
               setShow(false);
             });
           }}
-          disabled={isPending}
+          loading={isPending}
         />
       </BottomSheet>
     </>

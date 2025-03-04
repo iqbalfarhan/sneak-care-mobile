@@ -66,7 +66,7 @@ const EditLayanan: FC<EditLayananProps> = ({ layanan }) => {
         <Button
           label="Simpan"
           icon="check"
-          disabled={isPending}
+          loading={isPending}
           onPress={() => {
             mutateAsync({
               id: layanan.id,

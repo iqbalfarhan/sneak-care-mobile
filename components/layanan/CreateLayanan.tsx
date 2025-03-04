@@ -59,7 +59,7 @@ const CreateLayanan = () => {
         <Button
           label="Simpan"
           icon="check"
-          disabled={isPending}
+          loading={isPending}
           onPress={() => {
             mutateAsync({
               name,
