@@ -2,9 +2,8 @@ import BarChart, { BarItem } from "@/components/BarChart";
 import Card from "@/components/Card";
 import Text from "@/components/Text";
 import Wrapper from "@/components/Wrapper";
-import { useColor } from "@/hooks/useColor";
 import { formatRupiah } from "@/utils/helpers/currency";
-import React, { useState } from "react";
+import React from "react";
 import { ScrollView } from "react-native";
 
 const data: BarItem[] = [
@@ -17,9 +16,6 @@ const data: BarItem[] = [
 ];
 
 const LaporanPendapatan = () => {
-  const { color } = useColor();
-  const [tanggal, setTanggal] = useState<Date>(new Date());
-
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Wrapper padding={20} gap={20}>

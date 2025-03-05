@@ -4,7 +4,7 @@ import { useColor } from "@/hooks/useColor";
 import { Order } from "@/utils/types/order";
 import { User } from "@/utils/types/user";
 import React, { FC, useState } from "react";
-import { ScrollView, TouchableOpacity } from "react-native";
+import { Pressable, ScrollView, TouchableOpacity } from "react-native";
 import BottomSheet from "../BottomSheet";
 import Button from "../Button";
 import ErrorMessage from "../ErrorMessage";
@@ -30,9 +30,9 @@ const PilihTeknisi: FC<PilihTeknisiProps> = ({ invoice, teknisi, onSave }) => {
   return (
     <>
       {selected ? (
-        <TouchableOpacity onPress={() => setShow(true)}>
+        <Pressable onLongPress={() => setShow(true)}>
           <KaryawanItem karyawan={selected} />
-        </TouchableOpacity>
+        </Pressable>
       ) : (
         <Button
           label="Pilih teknisi"
@@ -82,7 +82,7 @@ const PilihTeknisi: FC<PilihTeknisiProps> = ({ invoice, teknisi, onSave }) => {
         <Button
           label="Pilih teknisi"
           icon="check"
-          loading={isPending}
+          disabled={isPending}
           onPress={() => {
             mutateAsync({
               id: invoice.id,

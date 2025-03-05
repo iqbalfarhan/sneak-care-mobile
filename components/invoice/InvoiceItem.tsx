@@ -69,7 +69,12 @@ const InvoiceItem: FC<InvoiceItemProps> = ({ invoice, color = "card" }) => {
       }
     >
       <Text variant="label">
-        Status order saat ini {invoice.status}, {message}
+        {barang.map((item, index) => (
+          <Text key={index} variant="label">
+            {item.name} ({item.layanan.name})
+            {index !== barang.length - 1 ? ", " : ""}
+          </Text>
+        ))}
       </Text>
     </Card>
   );

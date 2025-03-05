@@ -2,15 +2,17 @@ import { useColor } from "@/hooks/useColor";
 import { generateAvatarLink } from "@/utils/helpers/text";
 import { User } from "@/utils/types/user";
 import React, { FC } from "react";
+import { ViewStyle } from "react-native";
 import Avatar from "../Avatar";
 import Text from "../Text";
 import Wrapper from "../Wrapper";
 
 type KaryawanItemProps = {
   karyawan: User;
+  wrapperStyle?: ViewStyle;
 };
 
-const KaryawanItem: FC<KaryawanItemProps> = ({ karyawan }) => {
+const KaryawanItem: FC<KaryawanItemProps> = ({ karyawan, wrapperStyle }) => {
   const { color } = useColor();
   return (
     <Wrapper
@@ -21,6 +23,7 @@ const KaryawanItem: FC<KaryawanItemProps> = ({ karyawan }) => {
       padding={20}
       paddingVertical={15}
       borderRadius={10}
+      {...wrapperStyle}
     >
       <Avatar
         size={40}

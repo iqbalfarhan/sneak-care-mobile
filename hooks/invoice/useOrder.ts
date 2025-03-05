@@ -35,8 +35,8 @@ export const useEditOrder = () => {
   return useMutation({
     mutationFn: async (payload: EditOrderPayload) =>
       await apiOrder.putOrder(payload),
-    onSuccess: async () => {
-      queryClient.invalidateQueries({ queryKey: ["orders"] });
+    onSuccess: async (res) => {
+      queryClient.invalidateQueries({ queryKey: ["orders", res.id] });
     },
   });
 };

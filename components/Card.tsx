@@ -20,15 +20,9 @@ const Card: FC<CardProps> = ({
   const { color: theme } = useColor();
   const { bg } = theme[color];
   return (
-    <Wrapper
-      backgroundColor={bg}
-      padding={20}
-      borderRadius={10}
-      gap={15}
-      {...wrapperStyle}
-    >
+    <Wrapper backgroundColor={bg} padding={20} borderRadius={10} gap={15}>
       {header && <Wrapper>{header}</Wrapper>}
-      <Wrapper gap={15}>{children}</Wrapper>
+      {children && <Wrapper>{children}</Wrapper>}
       {footer && <Wrapper>{footer}</Wrapper>}
     </Wrapper>
   );

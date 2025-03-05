@@ -1,7 +1,7 @@
 import Input from "@/components/Input";
 import TabPill from "@/components/TabPill";
-import Text from "@/components/Text";
 import Wrapper from "@/components/Wrapper";
+import DailyReport from "@/components/dashboard/DailyReport";
 import EarningCard from "@/components/dashboard/EarningCard";
 import InvoicesResume from "@/components/dashboard/InvoicesResume";
 import SmallUserInfo from "@/components/dashboard/SmallUserInfo";
@@ -61,24 +61,8 @@ const index = () => {
             borderRadius: 10,
           }}
         >
-          {tab === "Pendapatan" && (
-            <Wrapper gap={10}>
-              <EarningCard />
-            </Wrapper>
-          )}
-
-          {tab === "Laporan" && (
-            <Wrapper gap={10}>
-              <Text variant="subtitle">Laporan bulanan</Text>
-              <Text>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta
-                praesentium eveniet earum doloremque vel nihil voluptates
-                impedit repudiandae quos cum libero voluptatum, consectetur fuga
-                assumenda molestias repellat consequatur nesciunt atque?
-              </Text>
-            </Wrapper>
-          )}
-
+          {tab === "Pendapatan" && <EarningCard />}
+          {tab === "Laporan" && <DailyReport />}
           {tab === "Invoices" && <InvoicesResume />}
         </ScrollView>
       </Wrapper>

@@ -1,4 +1,5 @@
 import Loading from "@/components/Loading";
+import Text from "@/components/Text";
 import Wrapper from "@/components/Wrapper";
 import { useColor } from "@/hooks/useColor";
 import { useSession } from "@/hooks/useSession";
@@ -25,7 +26,7 @@ const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
-        sceneStyle: { backgroundColor: color.base.bg },
+        sceneStyle: { backgroundColor: color.base.bg, paddingBottom: 80 },
         headerStyle: {
           backgroundColor: color.base.bg,
           borderBottomWidth: 0,
@@ -40,14 +41,21 @@ const TabsLayout = () => {
         tabBarActiveTintColor: color.primary.bg as string,
         tabBarInactiveTintColor: "#808080",
         tabBarStyle: {
-          backgroundColor: color.base.bg,
+          backgroundColor: color.card.bg,
+          borderRadius: 20,
           borderTopWidth: 0,
           elevation: 0,
           height: 70,
+          position: "absolute",
+          margin: 10,
         },
         tabBarItemStyle: {
-          height: 70,
-          paddingVertical: 10,
+          justifyContent: "center",
+          alignItems: "center",
+          flex: 1,
+        },
+        tabBarIconStyle: {
+          flex: 1,
         },
         tabBarShowLabel: false,
         tabBarLabelStyle: {
@@ -60,8 +68,9 @@ const TabsLayout = () => {
         name="index"
         options={{
           title: "Sneak Care",
-          tabBarIcon: ({ size, color }) => (
-            <Octicons name="home" size={size} color={color} />
+          tabBarLabel: "Home",
+          tabBarIcon: (other) => (
+            <CustomTabBarIcon label="Home" icon="home" {...other} />
           ),
         }}
       />
@@ -69,8 +78,8 @@ const TabsLayout = () => {
         name="invoice"
         options={{
           title: "Invoice",
-          tabBarIcon: ({ size, color }) => (
-            <Octicons name="archive" size={size} color={color} />
+          tabBarIcon: (other) => (
+            <CustomTabBarIcon label="Invoice" icon="archive" {...other} />
           ),
         }}
       />
@@ -79,8 +88,8 @@ const TabsLayout = () => {
         options={{
           title: "Buat pesanan",
           tabBarLabel: "Pesanan",
-          tabBarIcon: ({ size, color }) => (
-            <Octicons name="diff-added" size={size} color={color} />
+          tabBarIcon: (other) => (
+            <CustomTabBarIcon label="Pesanan" icon="diff-added" {...other} />
           ),
         }}
       />
@@ -88,8 +97,8 @@ const TabsLayout = () => {
         name="laporan"
         options={{
           title: "Laporan",
-          tabBarIcon: ({ size, color }) => (
-            <Octicons name="stack" size={size} color={color} />
+          tabBarIcon: (other) => (
+            <CustomTabBarIcon label="Report" icon="stack" {...other} />
           ),
         }}
       />
@@ -97,12 +106,45 @@ const TabsLayout = () => {
         name="setting"
         options={{
           title: "Pengaturan",
-          tabBarIcon: ({ size, color }) => (
-            <Octicons name="gear" size={size} color={color} />
+          tabBarIcon: (other) => (
+            <CustomTabBarIcon label="Setting" icon="gear" {...other} />
           ),
         }}
       />
     </Tabs>
+  );
+};
+
+const CustomTabBarIcon = ({
+  label,
+  icon,
+  focused,
+  size,
+  color,
+}: {
+  label: string;
+  focused: boolean;
+  color: string;
+  size: number;
+  icon: keyof typeof Octicons.glyphMap;
+}) => {
+  return (
+    <Wrapper
+      flex={1}
+      justifyContent="center"
+      alignItems="center"
+      aspectRatio={1}
+      opacity={focused ? 1 : 0.5}
+      gap={5}
+    >
+      <Octicons name={icon} color={color} size={22} />
+
+      {focused && (
+        <Text variant="small" color={color}>
+          {label}
+        </Text>
+      )}
+    </Wrapper>
   );
 };
 

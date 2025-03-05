@@ -1,5 +1,5 @@
 import { ThemeColors } from "@/hooks/useColor";
-import { OrderStatus } from "../types/order";
+import { Order, OrderStatus } from "../types/order";
 
 export const generateAvatarLink = (fallback?: string | number, size = 50) => {
   const random = Math.floor(Math.random() * 1000);
@@ -98,4 +98,29 @@ export const getGreeting = (): string => {
   } else {
     return "Selamat malam!";
   }
+};
+
+export const formatPhoneNumber = (phone: string): string => {
+  // Hapus semua spasi dan karakter non-digit
+  let cleaned = phone.replace(/\D/g, "");
+
+  // Jika diawali dengan "0", ganti dengan "+62"
+  if (cleaned.startsWith("0")) {
+    cleaned = "+62" + cleaned.slice(1);
+  } else if (cleaned.startsWith("62")) {
+    cleaned = "+62" + cleaned.slice(2);
+  } else if (!cleaned.startsWith("+62")) {
+    cleaned = "+62" + cleaned;
+  }
+
+  return cleaned;
+};
+
+export const generateWhatsappMessage = (invoice: Order): string => {
+  const phoneNumber = formatPhoneNumber(invoice.pelanggan.phone);
+  const webLink = `${process.env.EXPO_PUBLIC_WEB_URL}/invoice/${invoice.id}`;
+  const message = `Halo, ${getGreeting()} ${invoice.pelanggan.name}.\n\nini adalah link invoice pembayaran jasa cuci sepatu kamu. disini kamu juga bisa ngecek status pengerjaan sepatu kamu.\n\n${webLink}\n\nnanti masuking kode ${invoice.invoice_no.replace(/\D/g, "")} ke kolom kode saat masuk ke halaman itu untuk verifikasi.`;
+  const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+  return url;
 };

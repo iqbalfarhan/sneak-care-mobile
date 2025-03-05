@@ -5,6 +5,7 @@ import CreatePembayaran from "@/components/pembayaran/CreatePembayaran";
 import EditPembayaran from "@/components/pembayaran/EditPembayaran";
 import PembayaranItem from "@/components/pembayaran/PembayaranItem";
 import SwipeAction from "@/components/SwipeAction";
+import Text from "@/components/Text";
 import Wrapper from "@/components/Wrapper";
 import { useDeletePayment, useGetPayment } from "@/hooks/setting/usePayment";
 import React, { useState } from "react";
@@ -62,6 +63,7 @@ const PembayaranScreen = () => {
               ))}
           </Wrapper>
           <CreatePembayaran />
+          <Text variant="label">*Masukkan metode pembayaran selain tunai</Text>
         </Wrapper>
       </ScrollView>
     </GestureHandlerRootView>
